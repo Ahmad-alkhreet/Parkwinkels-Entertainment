@@ -1,0 +1,22 @@
+﻿@page
+@model MedewerkersModel
+@{
+    ViewData["Title"] = "Medewerkers";
+}
+<h2>Medewerker toevoegen</h2>
+
+<form method="post" class="mb-4">
+    <div class="mb-3"><label asp-for="NieuweMedewerker.Naam">Naam</label><input asp-for="NieuweMedewerker.Naam" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="NieuweMedewerker.Rol">Rol</label><input asp-for="NieuweMedewerker.Rol" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="NieuweMedewerker.Email">Email</label><input asp-for="NieuweMedewerker.Email" type="email" class="form-control" /></div>
+    <button type="submit" class="btn btn-success">Toevoegen</button>
+</form>
+
+<hr />
+<h3>Bestaande medewerkers</h3>
+<ul class="list-group">
+    @foreach (var m in Model.Medewerkers)
+    {
+        <li class="list-group-item">@m.GetNaam() - @m.GetRol() - @m.GetEmail()</li>
+    }
+</ul>

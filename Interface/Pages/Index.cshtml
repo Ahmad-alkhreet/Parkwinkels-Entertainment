@@ -1,0 +1,49 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center mt-4">
+    <h1 class="display-5 fw-bold">Welkom bij Parkwinkel Area42</h1>
+    <p class="lead">Beheer hier eenvoudig alle onderdelen van het park.</p>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">🛒 Producten</h5>
+                <p class="card-text">Beheer winkelvoorraad en producten.</p>
+                <a class="btn btn-primary" asp-page="/Producten">Naar producten</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">🎭 Activiteiten</h5>
+                <p class="card-text">Bekijk geplande animatie en outdooractiviteiten.</p>
+                <a class="btn btn-secondary" asp-page="/Activiteiten">Alleen bekijken</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">📰 Nieuws</h5>
+                <p class="card-text">Voeg nieuwsberichten toe en beheer bestaande.</p>
+                <a class="btn btn-primary" asp-page="/Nieuws">Naar nieuws</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">👥 Medewerkers</h5>
+                <p class="card-text">Beheer animatie- en winkelpersoneel.</p>
+                <a class="btn btn-primary" asp-page="/Medewerkers">Naar medewerkers</a>
+            </div>
+        </div>
+    </div>
+</div>

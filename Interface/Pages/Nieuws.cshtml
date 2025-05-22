@@ -1,0 +1,25 @@
+﻿@page
+@model NieuwsModel
+@{
+    ViewData["Title"] = "Nieuws";
+}
+<h2>Nieuwsbericht toevoegen</h2>
+
+<form method="post" class="mb-4">
+    <div class="mb-3"><label asp-for="NieuwNieuws.Titel">Titel</label><input asp-for="NieuwNieuws.Titel" class="form-control" /></div>
+    <div class="mb-3"><label asp-for="NieuwNieuws.Inhoud">Inhoud</label><textarea asp-for="NieuwNieuws.Inhoud" class="form-control"></textarea></div>
+    <button type="submit" class="btn btn-primary">Toevoegen</button>
+</form>
+
+<hr />
+<h3>Bestaande nieuwsberichten</h3>
+@foreach (var n in Model.Berichten)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">@n.GetTitel()</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@n.GetPublicatiedatum().ToShortDateString()</h6>
+            <p class="card-text">@n.GetInhoud()</p>
+        </div>
+    </div>
+}

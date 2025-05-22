@@ -1,0 +1,64 @@
+﻿@page
+@model ProductenModel
+@{
+    ViewData["Title"] = "Producten";
+}
+
+<h2 class="text-2xl font-bold mb-4">Product toevoegen</h2>
+
+<form method="post" class="mb-5">
+    <div class="mb-3">
+        <label asp-for="NieuwProduct.Naam" class="form-label">Naam</label>
+        <input asp-for="NieuwProduct.Naam" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuwProduct.Categorie" class="form-label">Categorie</label>
+        <input asp-for="NieuwProduct.Categorie" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuwProduct.VoorraadAantal" class="form-label">Voorraad</label>
+        <input asp-for="NieuwProduct.VoorraadAantal" type="number" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuwProduct.MinimaleVoorraad" class="form-label">Minimum voorraad</label>
+        <input asp-for="NieuwProduct.MinimaleVoorraad" type="number" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuwProduct.Prijs" class="form-label">Prijs (€)</label>
+        <input asp-for="NieuwProduct.Prijs" type="number" step="0.01" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Toevoegen</button>
+</form>
+
+<hr />
+
+<h2 class="text-2xl font-bold mt-4 mb-3">Bestaande producten</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Naam</th>
+            <th>Categorie</th>
+            <th>Voorraad</th>
+            <th>Prijs</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Producten)
+        {
+            <tr>
+                <td>@product.GetNaam()</td>
+                <td>@product.GetCategorie()</td>
+                <td>@product.GetVoorraadAantal()</td>
+                <td>@product.GetPrijs().ToString("C")</td>
+                <td>
+                    <form method="post" asp-page-handler="Verwijder" asp-route-id="@product.GetProductID()" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger">🗑 Verwijder</button>
+                    </form>
+                    <a class="btn btn-sm btn-warning ms-2" asp-page="/Producten/Bewerk" asp-route-id="@product.GetProductID()">✏ Bewerken</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
