@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿
+
+namespace Domain
 {
     public class Medewerker
     {

@@ -1,6 +1,7 @@
 ﻿namespace Domain
 {
     public class Activiteit
+
     {
         private int ActiviteitID { get; set; }
         private string Naam { get; set; }

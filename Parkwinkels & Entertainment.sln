@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "Parkwinkels & Entertainment\DataAccess.csproj", "{93B06EDB-F71E-41B5-8939-FFD94673CECB}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIPresentation", "Interface\UIPresentation.csproj", "{BA2F3D76-3A96-46FA-BE96-A02E2A7E113A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{48682773-13B8-484C-8E4C-71752C388419}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{6F306718-AD34-4C6B-A2E3-E385C742B1F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{48682773-13B8-484C-8E4C-71752C388419}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48682773-13B8-484C-8E4C-71752C388419}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48682773-13B8-484C-8E4C-71752C388419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F306718-AD34-4C6B-A2E3-E385C742B1F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F306718-AD34-4C6B-A2E3-E385C742B1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F306718-AD34-4C6B-A2E3-E385C742B1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F306718-AD34-4C6B-A2E3-E385C742B1F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

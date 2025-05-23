@@ -1,6 +1,4 @@
-﻿using DataAccess.Repositories;
-using Domain;
-using System;
+﻿using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,9 +6,9 @@ namespace Service
 {
     public class NieuwsberichtService
     {
-        private readonly NieuwsberichtRepository _nieuwsRepository;
+        private readonly INieuwsberichtRepository _nieuwsRepository;
 
-        public NieuwsberichtService(NieuwsberichtRepository nieuwsRepository)
+        public NieuwsberichtService(INieuwsberichtRepository nieuwsRepository)
         {
             _nieuwsRepository = nieuwsRepository;
         }

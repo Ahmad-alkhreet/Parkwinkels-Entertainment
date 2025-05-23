@@ -1,5 +1,4 @@
-﻿using DataAccess.Repositories;
-using Domain;
+﻿using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,9 +6,9 @@ namespace Service
 {
     public class ActiviteitService
     {
-        private readonly ActiviteitRepository _activiteitRepository;
+        private readonly IActiviteitRepository _activiteitRepository;
 
-        public ActiviteitService(ActiviteitRepository activiteitRepository)
+        public ActiviteitService(IActiviteitRepository activiteitRepository)
         {
             _activiteitRepository = activiteitRepository;
         }

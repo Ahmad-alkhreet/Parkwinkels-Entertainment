@@ -1,5 +1,4 @@
-﻿using DataAccess.Repositories;
-using Domain;
+﻿using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,9 +6,9 @@ namespace Service
 {
     public class ProductService
     {
-        private readonly ProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;
 
-        public ProductService(ProductRepository productRepository)
+        public ProductService(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
