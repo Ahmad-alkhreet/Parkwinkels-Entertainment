@@ -27,7 +27,7 @@ public class ProductServiceTests
 
         // Assert
         Assert.Single(result);
-        Assert.Equal("Chips", result[0].GetNaam());
+        Assert.Equal("Chips", result[0].Naam);
     }
 
     [Fact]
@@ -43,11 +43,11 @@ public class ProductServiceTests
         // Assert
         mockRepo.Verify(r => r.AddAsync(It.Is<Product>(p =>
             p != null &&
-            p.GetNaam() == "Cola" &&
-            p.GetCategorie() == "Drinken" &&
-            p.GetVoorraadAantal() == 100 &&
-            p.GetMinimaleVoorraad() == 10 &&
-            p.GetPrijs() == 1.50m
+            p.Naam == "Cola" &&
+            p.Categorie == "Drinken" &&
+            p.VoorraadAantal == 100 &&
+            p.MinimaleVoorraad == 10 &&
+            p.Prijs == 1.50m
         )), Times.Once);
     }
 

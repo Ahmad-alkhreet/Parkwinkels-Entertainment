@@ -47,15 +47,15 @@
         @foreach (var product in Model.Producten)
         {
             <tr>
-                <td>@product.GetNaam()</td>
-                <td>@product.GetCategorie()</td>
-                <td>@product.GetVoorraadAantal()</td>
-                <td>@product.GetPrijs().ToString("C")</td>
+                <td>@product.Naam</td>
+                <td>@product.Categorie</td>
+                <td>@product.VoorraadAantal</td>
+                <td>@product.Prijs.ToString("C")</td>
                 <td>
-                    <form method="post" asp-page-handler="Verwijder" asp-route-id="@product.GetProductID()" style="display:inline;">
+                    <form method="post" asp-page-handler="Verwijder" asp-route-id="@product.ProductID" style="display:inline;">
                         <button type="submit" class="btn btn-sm btn-danger">🗑 Verwijder</button>
                     </form>
-                    <a class="btn btn-sm btn-warning ms-2" asp-page="/Producten/Bewerk" asp-route-id="@product.GetProductID()">✏ Bewerken</a>
+                    <a class="btn btn-sm btn-warning ms-2" asp-page="/Producten/Bewerk" asp-route-id="@product.ProductID">✏ Bewerken</a>
                 </td>
             </tr>
         }

@@ -20,8 +20,8 @@ public class NieuwsberichtServiceTests
         // Assert
         mockRepo.Verify(r => r.AddAsync(It.Is<Nieuwsbericht>(
            n => n != null &&
-                n.GetTitel() == "Test Titel" &&
-                n.GetInhoud() == "Test inhoud"
+                n.Titel == "Test Titel" &&
+                n.Inhoud == "Test inhoud"
        )), Times.Once);
 
     }
@@ -45,6 +45,6 @@ public class NieuwsberichtServiceTests
 
         // Assert
         Assert.Single(result);
-        Assert.Equal("Titel 1", result[0].GetTitel());
+        Assert.Equal("Titel 1", result[0].Titel);
     }
 }

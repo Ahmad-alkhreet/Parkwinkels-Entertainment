@@ -1,11 +1,12 @@
-﻿namespace Domain
+﻿
+namespace Domain
 {
     public class Nieuwsbericht
     {
-        private int NieuwsID { get; set; }
-        private string Titel { get; set; }
-        private string Inhoud { get; set; }
-        private DateTime Publicatiedatum { get; set; }
+        public int NieuwsID { get;  }
+        public string Titel { get;  }
+        public string Inhoud { get; }
+        public DateTime Publicatiedatum { get; }
 
         public Nieuwsbericht(int id, string titel, string inhoud, DateTime publicatiedatum)
         {
@@ -15,9 +16,9 @@
             Publicatiedatum = publicatiedatum;
         }
 
-        public int GetNieuwsID() => NieuwsID;
-        public string GetTitel() => Titel;
-        public string GetInhoud() => Inhoud;
-        public DateTime GetPublicatiedatum() => Publicatiedatum;
+        //public int GetNieuwsID() => NieuwsID;
+        //public string GetTitel() => Titel;
+        //public string GetInhoud() => Inhoud;
+        //public DateTime GetPublicatiedatum() => Publicatiedatum;
     }
 }

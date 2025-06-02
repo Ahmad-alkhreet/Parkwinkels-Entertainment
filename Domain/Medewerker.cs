@@ -1,13 +1,12 @@
 ﻿
-
 namespace Domain
 {
     public class Medewerker
     {
-        private int MedewerkerID { get; set; }
-        private string Naam { get; set; }
-        private string Rol { get; set; }
-        private string Email { get; set; }
+        public  int MedewerkerID { get;  }
+        public string Naam { get; }
+        public string Rol { get;  }
+        public string Email { get;  }
 
         public Medewerker(int id, string naam, string rol, string email)
         {
@@ -17,9 +16,9 @@ namespace Domain
             Email = email;
         }
 
-        public int GetMedewerkerID() => MedewerkerID;
-        public string GetNaam() => Naam;
-        public string GetRol() => Rol;
-        public string GetEmail() => Email;
+        //public int GetMedewerkerID() => MedewerkerID;
+        //public string GetNaam() => Naam;
+        //public string GetRol() => Rol;
+        //public string GetEmail() => Email;
     }
 }

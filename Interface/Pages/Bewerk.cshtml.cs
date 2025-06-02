@@ -28,16 +28,16 @@ public class BewerkModel : PageModel
     public async Task<IActionResult> OnGetAsync(int id)
     {
         var producten = await _productService.GetAllProductsAsync();
-        var p = producten.FirstOrDefault(p => p.GetProductID() == id);
+        var p = producten.FirstOrDefault(p => p.ProductID == id);
 
         if (p == null) return RedirectToPage("/Producten");
 
         ProductId = id;
-        Naam = p.GetNaam();
-        Categorie = p.GetCategorie();
-        VoorraadAantal = p.GetVoorraadAantal();
-        MinimaleVoorraad = p.GetMinimaleVoorraad();
-        Prijs = p.GetPrijs();
+        Naam = p.Naam;
+        Categorie = p.Categorie;
+        VoorraadAantal = p.VoorraadAantal;
+        MinimaleVoorraad = p.MinimaleVoorraad;
+        Prijs = p.Prijs;
 
         return Page();
     }
@@ -45,7 +45,7 @@ public class BewerkModel : PageModel
     public async Task<IActionResult> OnPostAsync()
     {
         await _productService.UpdateVoorraadAsync(ProductId, VoorraadAantal);
-        // Je kunt hier ook een UpdateProductAsync maken met alle velden
+        // hier ook een UpdateProductAsync maken met alle velden
         return RedirectToPage("/Producten");
     }
 }
