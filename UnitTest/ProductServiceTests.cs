@@ -4,7 +4,7 @@ using Service;
 using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DataAccess.Repositories;
+
 
 public class ProductServiceTests
 {
