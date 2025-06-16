@@ -26,6 +26,6 @@ public class ActiviteitServiceTests
 
         // Assert
         Assert.Single(result);
-        Assert.Equal("Voetbaltoernooi", result[0].GetNaam());
+        Assert.Equal("Voetbaltoernooi", result[0].Naam);
     }
 }

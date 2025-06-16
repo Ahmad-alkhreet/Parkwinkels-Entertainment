@@ -25,9 +25,9 @@
         @foreach (var a in Model.Activiteiten)
         {
             <tr>
-                <td>@a.GetNaam()</td>
-                <td>@a.GetLocatie()</td>
-                <td>@a.GetStarttijd().ToShortTimeString() - @a.GetEindtijd().ToShortTimeString()</td>
+                <td>@a.Naam</td>
+                <td>@a.Locatie</td>
+                <td>@a.Starttijd.ToShortTimeString - @a.Eindtijd.ToShortTimeString</td>
             </tr>
         }
     </tbody>

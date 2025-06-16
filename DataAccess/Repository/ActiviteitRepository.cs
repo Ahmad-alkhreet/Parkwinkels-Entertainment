@@ -48,12 +48,12 @@ namespace DataAccess.Repositories
                 VALUES (@Naam, @Beschrijving, @Locatie, @Starttijd, @Eindtijd, @MaxDeelnemers)";
                 using (var command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Naam", activiteit.GetNaam());
-                    command.Parameters.AddWithValue("@Beschrijving", activiteit.GetBeschrijving());
-                    command.Parameters.AddWithValue("@Locatie", activiteit.GetLocatie());
-                    command.Parameters.AddWithValue("@Starttijd", activiteit.GetStarttijd());
-                    command.Parameters.AddWithValue("@Eindtijd", activiteit.GetEindtijd());
-                    command.Parameters.AddWithValue("@MaxDeelnemers", activiteit.GetMaxDeelnemers());
+                    command.Parameters.AddWithValue("@Naam", activiteit.Naam);
+                    command.Parameters.AddWithValue("@Beschrijving", activiteit.Beschrijving);
+                    command.Parameters.AddWithValue("@Locatie", activiteit.Locatie);
+                    command.Parameters.AddWithValue("@Starttijd", activiteit.Starttijd);
+                    command.Parameters.AddWithValue("@Eindtijd", activiteit.Eindtijd);
+                    command.Parameters.AddWithValue("@MaxDeelnemers", activiteit.MaxDeelnemers);
                     await command.ExecuteNonQueryAsync();
                 }
             }

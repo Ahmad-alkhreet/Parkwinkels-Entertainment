@@ -4,13 +4,13 @@ namespace Domain
     public class Activiteit
 
     {
-        private int ActiviteitID { get; set; }
-        private string Naam { get; set; }
-        private string Beschrijving { get; set; }
-        private string Locatie { get; set; }
-        private DateTime Starttijd { get; set; }
-        private DateTime Eindtijd { get; set; }
-        private int MaxDeelnemers { get; set; }
+        public int ActiviteitID { get; private set; }
+        public string Naam { get; private set; }
+        public string Beschrijving { get; private set; }
+        public string Locatie { get; private set; }
+        public DateTime Starttijd { get; private set; }
+        public DateTime Eindtijd { get; private set; }
+        public int MaxDeelnemers { get; private set; }
 
         public Activiteit(int id, string naam, string beschrijving, string locatie, DateTime starttijd, DateTime eindtijd, int maxDeelnemers)
         {
@@ -23,12 +23,12 @@ namespace Domain
             MaxDeelnemers = maxDeelnemers;
         }
 
-        public int GetActiviteitID() => ActiviteitID;
-        public string GetNaam() => Naam;
-        public string GetBeschrijving() => Beschrijving;
-        public string GetLocatie() => Locatie;
-        public DateTime GetStarttijd() => Starttijd;
-        public DateTime GetEindtijd() => Eindtijd;
-        public int GetMaxDeelnemers() => MaxDeelnemers;
+        //public int GetActiviteitID() => ActiviteitID;
+        //public string GetNaam() => Naam;
+        //public string GetBeschrijving() => Beschrijving;
+        //public string GetLocatie() => Locatie;
+        //public DateTime GetStarttijd() => Starttijd;
+        //public DateTime GetEindtijd() => Eindtijd;
+        //public int GetMaxDeelnemers() => MaxDeelnemers;
     }
 }
