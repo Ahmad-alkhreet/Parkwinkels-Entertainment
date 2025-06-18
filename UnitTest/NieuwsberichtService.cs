@@ -47,4 +47,37 @@ public class NieuwsberichtServiceTests
         Assert.Single(result);
         Assert.Equal("Titel 1", result[0].Titel);
     }
+
+    [Fact]
+    public async Task AddNieuwsberichtAsync_ThrowsException_WhenTitelIsLeeg()
+    {
+        // Arrange
+        var mockRepo = new Mock<INieuwsberichtRepository>();
+        var service = new NieuwsberichtService(mockRepo.Object);
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<ArgumentException>(() =>
+            service.AddNieuwsberichtAsync("", "Geldige inhoud")
+        );
+        Assert.Equal("Titel mag niet leeg zijn.", ex.Message);
+
+        mockRepo.Verify(r => r.AddAsync(It.IsAny<Nieuwsbericht>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task AddNieuwsberichtAsync_ThrowsException_WhenInhoudIsLeeg()
+    {
+        // Arrange
+        var mockRepo = new Mock<INieuwsberichtRepository>();
+        var service = new NieuwsberichtService(mockRepo.Object);
+
+        // Act & Assert
+        var ex = await Assert.ThrowsAsync<ArgumentException>(() =>
+            service.AddNieuwsberichtAsync("Geldige titel", "  ")
+        );
+        Assert.Equal("Inhoud mag niet leeg zijn.", ex.Message);
+
+        mockRepo.Verify(r => r.AddAsync(It.IsAny<Nieuwsbericht>()), Times.Never);
+    }
+
 }

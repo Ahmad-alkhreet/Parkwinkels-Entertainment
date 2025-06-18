@@ -14,6 +14,15 @@ namespace Domain
 
         public Activiteit(int id, string naam, string beschrijving, string locatie, DateTime starttijd, DateTime eindtijd, int maxDeelnemers)
         {
+            if (string .IsNullOrEmpty(naam)) 
+                throw new ArgumentException ("Naam mag niet leeg zijn.");
+            if (starttijd >= eindtijd)
+                throw new ArgumentException("Starttijd moet voor eindtijd liggen.");
+            if (maxDeelnemers <= 0)
+                throw new ArgumentException("Maximaal aantal deelnemers moet groter zijn dan nul.");
+
+
+
             ActiviteitID = id;
             Naam = naam;
             Beschrijving = beschrijving;

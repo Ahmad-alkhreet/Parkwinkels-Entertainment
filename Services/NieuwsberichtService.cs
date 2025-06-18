@@ -20,8 +20,15 @@ namespace Service
 
         public async Task AddNieuwsberichtAsync(string titel, string inhoud)
         {
+            if (string.IsNullOrWhiteSpace(titel))
+                throw new ArgumentException("Titel mag niet leeg zijn.");
+
+            if (string.IsNullOrWhiteSpace(inhoud))
+                throw new ArgumentException("Inhoud mag niet leeg zijn.");
+
             var nieuws = new Nieuwsbericht(0, titel, inhoud, DateTime.Now);
             await _nieuwsRepository.AddAsync(nieuws);
         }
+
     }
 }
