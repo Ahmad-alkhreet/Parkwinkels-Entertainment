@@ -1,38 +1,89 @@
 ﻿using Xunit;
 using Moq;
-using Service;
 using Domain;
-using System.Threading.Tasks;
+using Service;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-public class NieuwsberichtServiceTests
+public class NieuwsberichtTests
 {
+    // --- Constructor validatie tests ---
+
+    // Test of de constructor een exception gooit bij lege titel
     [Fact]
-    public async Task AddNieuwsberichtAsync_CreatesNieuwsberichtCorrect()
+    public void Constructor_ThrowsException_WhenTitelIsLeeg()
     {
-        // Arrange
+        var ex = Assert.Throws<ArgumentException>(() => new Nieuwsbericht(0, "", "inhoud", DateTime.Now));
+        Assert.Contains("Titel mag niet leeg zijn.", ex.Message);
+    }
+
+    // Test of de constructor een exception gooit bij lege of whitespace inhoud
+    [Fact]
+    public void Constructor_ThrowsException_WhenInhoudIsLeeg()
+    {
+        var ex = Assert.Throws<ArgumentException>(() => new Nieuwsbericht(0, "titel", "   ", DateTime.Now));
+        Assert.Contains("Inhoud mag niet leeg zijn.", ex.Message);
+    }
+
+    // Test of de constructor een exception gooit als publicatiedatum in de toekomst ligt
+    [Fact]
+    public void Constructor_ThrowsException_WhenPublicatiedatumInDeToekomst()
+    {
+        var toekomst = DateTime.Now.AddDays(1);
+        var ex = Assert.Throws<ArgumentException>(() => new Nieuwsbericht(0, "titel", "inhoud", toekomst));
+        Assert.Contains("Publicatiedatum mag niet in de toekomst liggen.", ex.Message);
+    }
+
+    // Test of de constructor een object correct aanmaakt bij geldige input
+    [Fact]
+    public void Constructor_CreatesObject_WhenValidInput()
+    {
+        var nu = DateTime.Now;
+        var nieuws = new Nieuwsbericht(0, "titel", "inhoud", nu);
+
+        Assert.Equal("titel", nieuws.Titel);
+        Assert.Equal("inhoud", nieuws.Inhoud);
+        Assert.Equal(nu, nieuws.Publicatiedatum);
+    }
+
+    // Test of alle properties van het object correct zijn ingesteld
+    [Fact]
+    public void Nieuwsbericht_PropertiesAreSetCorrectly()
+    {
+        var nu = DateTime.Now;
+        var nieuws = new Nieuwsbericht(1, "Titel", "Inhoud", nu);
+
+        Assert.Equal(1, nieuws.NieuwsID);
+        Assert.Equal("Titel", nieuws.Titel);
+        Assert.Equal("Inhoud", nieuws.Inhoud);
+        Assert.Equal(nu, nieuws.Publicatiedatum);
+    }
+
+    // --- Service tests ---
+
+    // Test of AddNieuwsberichtAsync de repository aanroept met een geldig nieuwsbericht
+    [Fact]
+    public async Task AddNieuwsberichtAsync_CallsRepositoryWithValidNieuwsbericht()
+    {
         var mockRepo = new Mock<INieuwsberichtRepository>();
         var service = new NieuwsberichtService(mockRepo.Object);
 
-        // Act
-        await service.AddNieuwsberichtAsync("Test Titel", "Test inhoud");
+        var nieuws = new Nieuwsbericht(0, "Goede titel", "Goede inhoud", DateTime.Now);
 
-        // Assert
+        await service.AddNieuwsberichtAsync(nieuws);
+
         mockRepo.Verify(r => r.AddAsync(It.Is<Nieuwsbericht>(
-           n => n != null &&
-                n.Titel == "Test Titel" &&
-                n.Inhoud == "Test inhoud"
-       )), Times.Once);
-
+            n => n.Titel == "Goede titel" && n.Inhoud == "Goede inhoud")), Times.Once);
     }
 
+    // Test of GetAllNieuwsAsync een lijst met nieuwsberichten teruggeeft
     [Fact]
     public async Task GetAllNieuwsAsync_ReturnsNieuwsberichten()
     {
-        // Arrange
         var dummyList = new List<Nieuwsbericht>
         {
-            new Nieuwsbericht(1, "Titel 1", "Inhoud 1", System.DateTime.Now)
+            new Nieuwsbericht(1, "Titel 1", "Inhoud 1", DateTime.Now)
         };
 
         var mockRepo = new Mock<INieuwsberichtRepository>();
@@ -40,44 +91,47 @@ public class NieuwsberichtServiceTests
 
         var service = new NieuwsberichtService(mockRepo.Object);
 
-        // Act
         var result = await service.GetAllNieuwsAsync();
 
-        // Assert
         Assert.Single(result);
         Assert.Equal("Titel 1", result[0].Titel);
     }
 
+    // Test of GetAllNieuwsAsync een lege lijst teruggeeft als er geen nieuwsberichten zijn
     [Fact]
-    public async Task AddNieuwsberichtAsync_ThrowsException_WhenTitelIsLeeg()
+    public async Task GetAllNieuwsAsync_ReturnsEmptyList_WhenNoNieuwsberichten()
     {
-        // Arrange
+        var mockRepo = new Mock<INieuwsberichtRepository>();
+        mockRepo.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Nieuwsbericht>());
+
+        var service = new NieuwsberichtService(mockRepo.Object);
+
+        var result = await service.GetAllNieuwsAsync();
+
+        Assert.Empty(result);
+    }
+
+    // Test of AddNieuwsberichtAsync een ArgumentNullException gooit als null wordt doorgegeven
+    [Fact]
+    public async Task AddNieuwsberichtAsync_ThrowsArgumentNullException_WhenNieuwsIsNull()
+    {
         var mockRepo = new Mock<INieuwsberichtRepository>();
         var service = new NieuwsberichtService(mockRepo.Object);
 
-        // Act & Assert
-        var ex = await Assert.ThrowsAsync<ArgumentException>(() =>
-            service.AddNieuwsberichtAsync("", "Geldige inhoud")
-        );
-        Assert.Equal("Titel mag niet leeg zijn.", ex.Message);
-
-        mockRepo.Verify(r => r.AddAsync(It.IsAny<Nieuwsbericht>()), Times.Never);
+        await Assert.ThrowsAsync<ArgumentNullException>(() => service.AddNieuwsberichtAsync(null));
     }
 
+    // Test of AddNieuwsberichtAsync exceptions van de repository netjes doorgeeft
     [Fact]
-    public async Task AddNieuwsberichtAsync_ThrowsException_WhenInhoudIsLeeg()
+    public async Task AddNieuwsberichtAsync_PropagatesExceptionFromRepository()
     {
-        // Arrange
         var mockRepo = new Mock<INieuwsberichtRepository>();
+        mockRepo.Setup(r => r.AddAsync(It.IsAny<Nieuwsbericht>())).ThrowsAsync(new InvalidOperationException());
+
         var service = new NieuwsberichtService(mockRepo.Object);
 
-        // Act & Assert
-        var ex = await Assert.ThrowsAsync<ArgumentException>(() =>
-            service.AddNieuwsberichtAsync("Geldige titel", "  ")
-        );
-        Assert.Equal("Inhoud mag niet leeg zijn.", ex.Message);
+        var nieuws = new Nieuwsbericht(0, "Titel", "Inhoud", DateTime.Now);
 
-        mockRepo.Verify(r => r.AddAsync(It.IsAny<Nieuwsbericht>()), Times.Never);
+        await Assert.ThrowsAsync<InvalidOperationException>(() => service.AddNieuwsberichtAsync(nieuws));
     }
-
 }

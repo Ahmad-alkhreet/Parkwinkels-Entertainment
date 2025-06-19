@@ -6,8 +6,14 @@
 <h2>Nieuwsbericht toevoegen</h2>
 
 <form method="post" class="mb-4">
-    <div class="mb-3"><label asp-for="NieuwNieuws.Titel">Titel</label><input asp-for="NieuwNieuws.Titel" class="form-control" /></div>
-    <div class="mb-3"><label asp-for="NieuwNieuws.Inhoud">Inhoud</label><textarea asp-for="NieuwNieuws.Inhoud" class="form-control"></textarea></div>
+    <div class="mb-3">
+        <label asp-for="NieuwNieuws.Titel">Titel</label>
+        <input asp-for="NieuwNieuws.Titel" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuwNieuws.Inhoud">Inhoud</label>
+        <textarea asp-for="NieuwNieuws.Inhoud" class="form-control"></textarea>
+    </div>
     <button type="submit" class="btn btn-primary">Toevoegen</button>
 </form>
 
@@ -18,7 +24,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <h5 class="card-title">@n.Titel</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@n.Publicatiedatum.ToShortDateString</h6>
+            <h6 class="card-subtitle mb-2 text-muted">@n.Publicatiedatum.ToString("dd-MM-yyyy HH:mm")</h6>
             <p class="card-text">@n.Inhoud</p>
         </div>
     </div>

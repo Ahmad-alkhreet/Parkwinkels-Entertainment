@@ -3,15 +3,34 @@
 @{
     ViewData["Title"] = "Activiteiten";
 }
+
 <h2 class="text-2xl font-bold mb-4">Activiteit toevoegen</h2>
 
 <form method="post" class="mb-4">
-    <div class="mb-3"><label asp-for="NieuweActiviteit.Naam">Naam</label><input asp-for="NieuweActiviteit.Naam" class="form-control" /></div>
-    <div class="mb-3"><label asp-for="NieuweActiviteit.Beschrijving">Beschrijving</label><textarea asp-for="NieuweActiviteit.Beschrijving" class="form-control"></textarea></div>
-    <div class="mb-3"><label asp-for="NieuweActiviteit.Locatie">Locatie</label><input asp-for="NieuweActiviteit.Locatie" class="form-control" /></div>
-    <div class="mb-3"><label asp-for="NieuweActiviteit.Starttijd">Starttijd</label><input asp-for="NieuweActiviteit.Starttijd" type="datetime-local" class="form-control" /></div>
-    <div class="mb-3"><label asp-for="NieuweActiviteit.Eindtijd">Eindtijd</label><input asp-for="NieuweActiviteit.Eindtijd" type="datetime-local" class="form-control" /></div>
-    <div class="mb-3"><label asp-for="NieuweActiviteit.MaxDeelnemers">Max deelnemers</label><input asp-for="NieuweActiviteit.MaxDeelnemers" type="number" class="form-control" /></div>
+    <div class="mb-3">
+        <label asp-for="NieuweActiviteit.Naam">Naam</label>
+        <input asp-for="NieuweActiviteit.Naam" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuweActiviteit.Beschrijving">Beschrijving</label>
+        <textarea asp-for="NieuweActiviteit.Beschrijving" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuweActiviteit.Locatie">Locatie</label>
+        <input asp-for="NieuweActiviteit.Locatie" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuweActiviteit.Starttijd">Starttijd</label>
+        <input asp-for="NieuweActiviteit.Starttijd" type="datetime-local" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuweActiviteit.Eindtijd">Eindtijd</label>
+        <input asp-for="NieuweActiviteit.Eindtijd" type="datetime-local" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="NieuweActiviteit.MaxDeelnemers">Max deelnemers</label>
+        <input asp-for="NieuweActiviteit.MaxDeelnemers" type="number" class="form-control" />
+    </div>
     <button type="submit" class="btn btn-success">Toevoegen</button>
 </form>
 
@@ -19,7 +38,11 @@
 <h3>Bestaande activiteiten</h3>
 <table class="table">
     <thead>
-        <tr><th>Naam</th><th>Locatie</th><th>Periode</th></tr>
+        <tr>
+            <th>Naam</th>
+            <th>Locatie</th>
+            <th>Periode</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var a in Model.Activiteiten)
@@ -27,7 +50,7 @@
             <tr>
                 <td>@a.Naam</td>
                 <td>@a.Locatie</td>
-                <td>@a.Starttijd.ToShortTimeString - @a.Eindtijd.ToShortTimeString</td>
+                <td>@a.Starttijd.ToString("dd-MM-yyyy HH:mm") - @a.Eindtijd.ToString("HH:mm")</td>
             </tr>
         }
     </tbody>

@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace Domain
 {
     public class Nieuwsbericht
@@ -10,23 +11,19 @@ namespace Domain
 
         public Nieuwsbericht(int id, string titel, string inhoud, DateTime publicatiedatum)
         {
-
-
             if (string.IsNullOrWhiteSpace(titel))
-                throw new ArgumentException("Titel mag niet leeg zijn.");
-            if (string.IsNullOrWhiteSpace(inhoud))
-                throw new ArgumentException("Inhoud mag niet leeg zijn.");
+                throw new ArgumentException("Titel mag niet leeg zijn.", nameof(titel));
 
+            if (string.IsNullOrWhiteSpace(inhoud))
+                throw new ArgumentException("Inhoud mag niet leeg zijn.", nameof(inhoud));
+
+            if (publicatiedatum > DateTime.Now)
+                throw new ArgumentException("Publicatiedatum mag niet in de toekomst liggen.", nameof(publicatiedatum));
 
             NieuwsID = id;
             Titel = titel;
             Inhoud = inhoud;
             Publicatiedatum = publicatiedatum;
         }
-
-        //public int GetNieuwsID() => NieuwsID;
-        //public string GetTitel() => Titel;
-        //public string GetInhoud() => Inhoud;
-        //public DateTime GetPublicatiedatum() => Publicatiedatum;
     }
 }

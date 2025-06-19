@@ -6,7 +6,11 @@ using Service;
 public class NieuwsModel : PageModel
 {
     private readonly NieuwsberichtService _nieuwsService;
-    public NieuwsModel(NieuwsberichtService nieuwsService) => _nieuwsService = nieuwsService;
+
+    public NieuwsModel(NieuwsberichtService nieuwsService)
+    {
+        _nieuwsService = nieuwsService;
+    }
 
     public List<Nieuwsbericht> Berichten { get; set; }
 
@@ -20,7 +24,17 @@ public class NieuwsModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        await _nieuwsService.AddNieuwsberichtAsync(NieuwNieuws.Titel, NieuwNieuws.Inhoud);
+        if (!ModelState.IsValid)
+            return Page();
+
+        var nieuwsbericht = new Nieuwsbericht(
+            0,
+            NieuwNieuws.Titel,
+            NieuwNieuws.Inhoud,
+            DateTime.Now
+        );
+
+        await _nieuwsService.AddNieuwsberichtAsync(nieuwsbericht);
         return RedirectToPage();
     }
 

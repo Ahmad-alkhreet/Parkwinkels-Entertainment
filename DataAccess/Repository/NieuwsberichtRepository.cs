@@ -20,7 +20,7 @@ namespace DataAccess.Repositories
             var lijst = new List<Nieuwsbericht>();
             using (var connection = await _dbHelper.GetConnectionAsync())
             {
-                var query = "SELECT * FROM Nieuwsbericht";
+                var query = "SELECT * FROM Nieuwsbericht WHERE Publicatiedatum <= NOW()";
                 using (var command = new MySqlCommand(query, connection))
                 using (var reader = await command.ExecuteReaderAsync())
                 {

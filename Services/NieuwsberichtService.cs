@@ -18,17 +18,10 @@ namespace Service
             return await _nieuwsRepository.GetAllAsync();
         }
 
-        public async Task AddNieuwsberichtAsync(string titel, string inhoud)
+        public async Task AddNieuwsberichtAsync(Nieuwsbericht nieuws)
         {
-            if (string.IsNullOrWhiteSpace(titel))
-                throw new ArgumentException("Titel mag niet leeg zijn.");
-
-            if (string.IsNullOrWhiteSpace(inhoud))
-                throw new ArgumentException("Inhoud mag niet leeg zijn.");
-
-            var nieuws = new Nieuwsbericht(0, titel, inhoud, DateTime.Now);
+            // Validatie is al gedaan in de constructor van Nieuwsbericht
             await _nieuwsRepository.AddAsync(nieuws);
         }
-
     }
 }
