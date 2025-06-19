@@ -44,8 +44,11 @@ public class BewerkModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
-        await _productService.UpdateVoorraadAsync(ProductId, VoorraadAantal);
-        // hier ook een UpdateProductAsync maken met alle velden
+        var product = new Product(ProductId, Naam, Categorie, VoorraadAantal, MinimaleVoorraad, Prijs);
+
+        await _productService.UpdateVoorraadAsync(product, VoorraadAantal);
+
         return RedirectToPage("/Producten");
     }
+
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Domain
+﻿namespace Domain
 {
     public class Product
     {
@@ -12,6 +11,10 @@ namespace Domain
 
         public Product(int id, string naam, string categorie, int voorraadAantal, int minimaleVoorraad, decimal prijs)
         {
+            if (string.IsNullOrWhiteSpace(naam))
+                throw new ArgumentException("Naam mag niet leeg zijn.");
+            if (string.IsNullOrWhiteSpace(categorie))
+                throw new ArgumentException("Categorie mag niet leeg zijn.");
             if (voorraadAantal < 0 || minimaleVoorraad < 0)
                 throw new ArgumentException("Voorraadwaarden mogen niet negatief zijn.");
             if (prijs < 0)
@@ -32,6 +35,7 @@ namespace Domain
             VoorraadAantal = nieuwAantal;
         }
     }
+}
 
     //public int GetProductID() => ProductID;
     //public string GetNaam() => Naam;
@@ -44,6 +48,6 @@ namespace Domain
     //{
     //    VoorraadAantal = nieuwAantal;
     //}
-}
+
 
 

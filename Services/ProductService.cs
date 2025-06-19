@@ -43,13 +43,15 @@ namespace Service
         /// ///////////////////////
         /// </summary>
 
-        public async Task UpdateVoorraadAsync(int productId, int nieuwAantal)
+        public async Task UpdateVoorraadAsync(Product product, int nieuwAantal)
         {
             if (nieuwAantal < 0)
                 throw new ArgumentException("Voorraad mag niet negatief zijn.");
 
-            await _productRepository.UpdateVoorraadAsync(productId, nieuwAantal);
+            product.UpdateVoorraad(nieuwAantal); 
+            await _productRepository.UpdateVoorraadAsync(product); 
         }
+
 
         /// </summary>  /// </summary>
         ///   /// </summary>  /// </summary>

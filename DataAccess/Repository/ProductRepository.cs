@@ -60,15 +60,15 @@ namespace DataAccess.Repositories
             }
         }
 
-        public async Task UpdateVoorraadAsync(int productId, int nieuwAantal)
+        public async Task UpdateVoorraadAsync(Product product)
         {
             using (var connection = await _dbHelper.GetConnectionAsync())
             {
                 var query = "UPDATE Product SET VoorraadAantal = @Aantal WHERE ProductID = @ProductID";
                 using (var command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@Aantal", nieuwAantal);
-                    command.Parameters.AddWithValue("@ProductID", productId);
+                    command.Parameters.AddWithValue("@Aantal", product.VoorraadAantal);
+                    command.Parameters.AddWithValue("@ProductID", product.ProductID);
 
                     await command.ExecuteNonQueryAsync();
                 }

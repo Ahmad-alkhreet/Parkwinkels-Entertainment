@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Domain;
 using Service;
+using System.ComponentModel.DataAnnotations;
+using Xunit.Sdk;
 
 public class ProductenModel : PageModel
 {
@@ -45,10 +47,20 @@ public class ProductenModel : PageModel
 
     public class ProductInputModel
     {
+        [Required(ErrorMessage = "Naam is verplicht")]
         public string Naam { get; set; }
+
+        [Required(ErrorMessage = "Categorie is verplicht")]
         public string Categorie { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "Voorraad moet 0 of meer zijn")]
         public int VoorraadAantal { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "Minimale voorraad moet 0 of meer zijn")]
         public int MinimaleVoorraad { get; set; }
+
+        [Range(0.0, double.MaxValue, ErrorMessage = "Prijs moet positief zijn")]
         public decimal Prijs { get; set; }
     }
+
 }

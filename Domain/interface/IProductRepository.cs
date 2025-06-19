@@ -7,7 +7,8 @@ namespace Domain
     {
         Task<List<Product>> GetAllAsync();
         Task AddAsync(Product product);
-        Task UpdateVoorraadAsync(int productId, int nieuwAantal);
-        Task DeleteAsync(int productId);
+        Task UpdateVoorraadAsync(Product product);
+        Task DeleteAsync(int product);
+        
     }
 }

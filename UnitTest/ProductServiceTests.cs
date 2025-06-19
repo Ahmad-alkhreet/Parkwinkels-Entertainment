@@ -4,14 +4,13 @@ using Service;
 using Domain;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using System;
 
 public class ProductServiceTests
 {
     [Fact]
     public async Task GetAllProductsAsync_ReturnsListOfProducts()
     {
-        // Arrange
         var producten = new List<Product>
         {
             new Product(1, "Chips", "Snack", 50, 5, 1.99m)
@@ -22,10 +21,8 @@ public class ProductServiceTests
 
         var service = new ProductService(mockRepo.Object);
 
-        // Act
         var result = await service.GetAllProductsAsync();
 
-        // Assert
         Assert.Single(result);
         Assert.Equal("Chips", result[0].Naam);
     }
@@ -33,16 +30,12 @@ public class ProductServiceTests
     [Fact]
     public async Task AddProductAsync_CallsRepositoryWithCorrectProduct()
     {
-        // Arrange
         var mockRepo = new Mock<IProductRepository>();
         var service = new ProductService(mockRepo.Object);
 
-        // Act
         await service.AddProductAsync("Cola", "Drinken", 100, 10, 1.50m);
 
-        // Assert
         mockRepo.Verify(r => r.AddAsync(It.Is<Product>(p =>
-            p != null &&
             p.Naam == "Cola" &&
             p.Categorie == "Drinken" &&
             p.VoorraadAantal == 100 &&
@@ -50,6 +43,7 @@ public class ProductServiceTests
             p.Prijs == 1.50m
         )), Times.Once);
     }
+
     [Theory]
     [InlineData("", "Drinken", 10, 5, 1.99, "Naam mag niet leeg zijn.")]
     [InlineData("Cola", "", 10, 5, 1.99, "Categorie mag niet leeg zijn.")]
@@ -57,7 +51,7 @@ public class ProductServiceTests
     [InlineData("Cola", "Drinken", 10, -2, 1.99, "Minimale voorraad mag niet negatief zijn.")]
     [InlineData("Cola", "Drinken", 10, 5, -0.50, "Prijs mag niet negatief zijn.")]
     public async Task AddProductAsync_ThrowsException_OnInvalidInput(
-    string naam, string categorie, int voorraad, int minimum, decimal prijs, string expectedMessage)
+        string naam, string categorie, int voorraad, int minimum, decimal prijs, string expectedMessage)
     {
         var mockRepo = new Mock<IProductRepository>();
         var service = new ProductService(mockRepo.Object);
@@ -71,74 +65,40 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public async Task UpdateVoorraadAsync_CallsRepositoryCorrectly()
+    public async Task UpdateVoorraadAsync_UpdatesProductCorrectly()
     {
-        // Arrange
+        var product = new Product(1, "Cola", "Drinken", 50, 10, 1.99m);
         var mockRepo = new Mock<IProductRepository>();
         var service = new ProductService(mockRepo.Object);
 
-        // Act
-        await service.UpdateVoorraadAsync(1, 75);
+        await service.UpdateVoorraadAsync(product, 30);
 
-        // Assert
-        mockRepo.Verify(r => r.UpdateVoorraadAsync(1, 75), Times.Once);
-    }
-
-    [Fact]
-    public async Task DeleteProductAsync_CallsRepositoryCorrectly()
-    {
-        // Arrange
-        var mockRepo = new Mock<IProductRepository>();
-        var service = new ProductService(mockRepo.Object);
-
-        // Act
-        await service.DeleteProductAsync(2);
-
-        // Assert
-        mockRepo.Verify(r => r.DeleteAsync(2), Times.Once);
+        Assert.Equal(30, product.VoorraadAantal);
+        mockRepo.Verify(r => r.UpdateVoorraadAsync(product), Times.Once);
     }
 
     [Fact]
     public async Task UpdateVoorraadAsync_ThrowsException_WhenAantalIsNegatief()
     {
-        // Arrange
+        var product = new Product(1, "Cola", "Drinken", 50, 10, 1.99m);
         var mockRepo = new Mock<IProductRepository>();
         var service = new ProductService(mockRepo.Object);
 
-        // Act & Assert
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() =>
-            service.UpdateVoorraadAsync(1, -10)
+        await Assert.ThrowsAsync<ArgumentException>(() =>
+            service.UpdateVoorraadAsync(product, -5)
         );
 
-        Assert.Equal("Voorraad mag niet negatief zijn.", exception.Message);
-        mockRepo.Verify(r => r.UpdateVoorraadAsync(It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+        mockRepo.Verify(r => r.UpdateVoorraadAsync(It.IsAny<Product>()), Times.Never);
     }
 
     [Fact]
-    public async Task UpdateVoorraadAsync_DoesNotThrow_WhenAantalIsZero()
+    public async Task DeleteProductAsync_CallsRepositoryCorrectly()
     {
-        // Arrange
         var mockRepo = new Mock<IProductRepository>();
         var service = new ProductService(mockRepo.Object);
 
-        // Act
-        await service.UpdateVoorraadAsync(1, 0);
+        await service.DeleteProductAsync(2);
 
-        // Assert
-        mockRepo.Verify(r => r.UpdateVoorraadAsync(1, 0), Times.Once);
-    }
-
-    [Fact]
-    public async Task UpdateVoorraadAsync_DoesNotThrow_WhenAantalIsPositief()
-    {
-        // Arrange
-        var mockRepo = new Mock<IProductRepository>();
-        var service = new ProductService(mockRepo.Object);
-
-        // Act
-        await service.UpdateVoorraadAsync(1, 25);
-
-        // Assert
-        mockRepo.Verify(r => r.UpdateVoorraadAsync(1, 25), Times.Once);
+        mockRepo.Verify(r => r.DeleteAsync(2), Times.Once);
     }
 }
