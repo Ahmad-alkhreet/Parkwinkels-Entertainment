@@ -39,9 +39,7 @@ namespace Service
             var product = new Product(0, naam, categorie, voorraad, minimum, prijs);
             await _productRepository.AddAsync(product);
         }
-        /// <summary>
-        /// ///////////////////////
-        /// </summary>
+
 
         public async Task UpdateVoorraadAsync(Product product, int nieuwAantal)
         {
@@ -53,8 +51,7 @@ namespace Service
         }
 
 
-        /// </summary>  /// </summary>
-        ///   /// </summary>  /// </summary>
+
 
         public async Task DeleteProductAsync(int productId)
         {

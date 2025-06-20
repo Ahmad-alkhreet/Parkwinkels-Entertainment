@@ -20,8 +20,11 @@ namespace Service
 
         public async Task AddNieuwsberichtAsync(Nieuwsbericht nieuws)
         {
-            // Validatie is al gedaan in de constructor van Nieuwsbericht
+            if (nieuws == null)
+                throw new ArgumentNullException(nameof(nieuws));
+
             await _nieuwsRepository.AddAsync(nieuws);
         }
+
     }
 }
